@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122003704) do
+ActiveRecord::Schema.define(version: 20171122204833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,12 +44,11 @@ ActiveRecord::Schema.define(version: 20171122003704) do
     t.bigint "employee_id"
     t.datetime "scheduled_start"
     t.datetime "scheduled_end"
-    t.datetime "actual_start"
-    t.datetime "actual_end"
     t.boolean "is_holiday", default: false
     t.float "break_took", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
     t.index ["employee_id"], name: "index_schedules_on_employee_id"
   end
 

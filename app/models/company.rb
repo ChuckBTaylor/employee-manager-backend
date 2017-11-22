@@ -13,4 +13,11 @@ class Company < ApplicationRecord
   end
 
 
+  def get_master_schedule
+    master_schedule = self.employees.map do |employee|
+      employee.schedules
+    end.flatten
+  end
+
+
 end
