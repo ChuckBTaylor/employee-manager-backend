@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+company = Company.create(name: "Art Builder's Guild")
+company.employees << Employee.create(name: "Jason", is_admin: true)
+company.employees << Employee.create(name: "Charley", is_admin: true)
+company.employees << Employee.create(name: "Ben", is_admin: true)
+company.employees << Employee.create(name: "Will")
+company.products << Product.create(name: "Chair")
+company.products << Product.create(name: "Bench")
+company.products << Product.create(name: "Stool")
