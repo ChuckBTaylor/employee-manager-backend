@@ -1,24 +1,24 @@
-# README
+So far there are two slightly fleshed-out models
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. Employee
+  * Name: string
+  * schedule\_color: string
+  * id: integer
+  * is\_admin: boolean
+  * company\_id: integer
+2. Schedule
+  * employee\_id: integer
+  * scheduled\_start: datetime
+  * scheduled\_end: datetime
+  * actual\_start: datetime
+  * actual\_end: datetime
+  * is\_holiday: boolean
+  * break\_took: float
+3. Product
+  * name: string
+  * company\_id: integer
 
-Things you may want to cover:
 
-* Ruby version
+Eventually there'll have to be a few join tables once I get the connection between other companies and contracts and what work needs to be done on any given product.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[Frontend Repo](https://github.com/ChuckBTaylor/employee-manager-frontend)
