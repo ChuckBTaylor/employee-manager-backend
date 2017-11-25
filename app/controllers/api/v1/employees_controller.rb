@@ -16,5 +16,20 @@ class Api::V1::EmployeesController < ApplicationController
     end
   end
 
+  def update
+    employee_info = params['employee']
+    employee = Employee.find(params['id'])
+    if employee.update(name: employee_info['name'], schedule_color: employee_info['schedule_color'], is_admin: employee_info['is_admin'])
+      render json: employee
+    else
+      render json: {errors: employee.errors.full_messages}, status: 422
+    end
+  end
+
+  def destroy
+    Employee.destroy(params['employee']['id'])
+    render json: Employee.all
+  end
+
 
 end
