@@ -37,13 +37,13 @@ ActiveRecord::Schema.define(version: 20171125214815) do
     t.index ["company_id"], name: "index_employees_on_company_id"
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "services", force: :cascade do |t|
     t.string "name"
     t.string "img_url"
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_products_on_company_id"
+    t.index ["company_id"], name: "index_services_on_company_id"
   end
 
   create_table "projects", force: :cascade do |t|

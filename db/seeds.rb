@@ -16,9 +16,9 @@ company.employees << Employee.create(name: "Rachel", schedule_color: '#AA0080')
 company.employees << Employee.create(name: "Ty", schedule_color: '#0AA080')
 company.employees << Employee.create(name: "Sean", schedule_color: '#00AA80')
 
-company.products << Product.create(name: "Chair")
-company.products << Product.create(name: "Bench")
-company.products << Product.create(name: "Stool")
+company.services << Service.create(name: "Roof")
+company.services << Service.create(name: "Bench")
+company.services << Service.create(name: "Stool")
 
 company.services << Service.create(name: "Materials")
 

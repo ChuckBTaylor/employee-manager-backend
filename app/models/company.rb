@@ -1,6 +1,6 @@
 class Company < ApplicationRecord
   has_many :employees
-  has_many :products
+  has_many :services
   has_many :clients
   has_many :services
 

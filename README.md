@@ -14,11 +14,11 @@ So far there are two slightly fleshed-out models
   * actual\_end: datetime
   * is\_holiday: boolean
   * break\_took: float
-3. Product
+3. Service
   * name: string
   * company\_id: integer
 
 
-Eventually there'll have to be a few join tables once I get the connection between other companies and contracts and what work needs to be done on any given product.
+Eventually there'll have to be a few join tables once I get the connection between other companies and contracts and what work needs to be done on any given service.
 
 [Frontend Repo](https://github.com/ChuckBTaylor/employee-manager-frontend)
