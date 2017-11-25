@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122204833) do
+ActiveRecord::Schema.define(version: 20171125214815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_clients_on_company_id"
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -40,6 +46,15 @@ ActiveRecord::Schema.define(version: 20171122204833) do
     t.index ["company_id"], name: "index_products_on_company_id"
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.string "subtype"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_projects_on_client_id"
+  end
+
   create_table "schedules", force: :cascade do |t|
     t.bigint "employee_id"
     t.datetime "scheduled_start"
@@ -52,6 +67,17 @@ ActiveRecord::Schema.define(version: 20171122204833) do
     t.index ["employee_id"], name: "index_schedules_on_employee_id"
   end
 
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_services_on_company_id"
+  end
+
+  add_foreign_key "clients", "companies"
   add_foreign_key "employees", "companies"
+  add_foreign_key "projects", "clients"
   add_foreign_key "schedules", "employees"
+  add_foreign_key "services", "companies"
 end
