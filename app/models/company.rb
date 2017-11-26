@@ -21,5 +21,11 @@ class Company < ApplicationRecord
     end.flatten
   end
 
+  def projects
+    self.clients.map do |client|
+      client.projects
+    end.flatten
+  end
+
 
 end

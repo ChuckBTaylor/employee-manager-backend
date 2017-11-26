@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171125214815) do
+ActiveRecord::Schema.define(version: 20171126004430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,13 +37,23 @@ ActiveRecord::Schema.define(version: 20171125214815) do
     t.index ["company_id"], name: "index_employees_on_company_id"
   end
 
-  create_table "services", force: :cascade do |t|
+  create_table "pieces", force: :cascade do |t|
+    t.bigint "project_id"
     t.string "name"
-    t.string "img_url"
-    t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_services_on_company_id"
+    t.index ["project_id"], name: "index_pieces_on_project_id"
+  end
+
+  create_table "procedures", force: :cascade do |t|
+    t.bigint "service_id"
+    t.bigint "piece_id"
+    t.float "expected_time"
+    t.boolean "complete", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["piece_id"], name: "index_procedures_on_piece_id"
+    t.index ["service_id"], name: "index_procedures_on_service_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -77,6 +87,9 @@ ActiveRecord::Schema.define(version: 20171125214815) do
 
   add_foreign_key "clients", "companies"
   add_foreign_key "employees", "companies"
+  add_foreign_key "pieces", "projects"
+  add_foreign_key "procedures", "pieces"
+  add_foreign_key "procedures", "services"
   add_foreign_key "projects", "clients"
   add_foreign_key "schedules", "employees"
   add_foreign_key "services", "companies"

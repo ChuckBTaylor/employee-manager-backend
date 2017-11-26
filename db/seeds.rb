@@ -16,13 +16,38 @@ company.employees << Employee.create(name: "Rachel", schedule_color: '#AA0080')
 company.employees << Employee.create(name: "Ty", schedule_color: '#0AA080')
 company.employees << Employee.create(name: "Sean", schedule_color: '#00AA80')
 
-company.services << Service.create(name: "Roof")
-company.services << Service.create(name: "Bench")
-company.services << Service.create(name: "Stool")
-
 company.services << Service.create(name: "Materials")
+company.services << Service.create(name: "Roof Raise")
+company.services << Service.create(name: "Joining")
+
 
 client = Client.create(name: "Hucklberry Roasters")
 company.clients << client
 
-client.projects << Project.create(name: "Pecos", subtype: "Restaurant")
+project = Project.create(name: "Dairy Block", subtype: "restaurant")
+client.projects << project
+
+
+project = Project.create(name: "Pecos", subtype: "restaurant")
+client.projects << project
+
+piece = Piece.create(name: "Shelves")
+project.pieces << piece
+
+piece = Piece.create(name: "Table")
+project.pieces << piece
+
+
+
+client = Client.create(name: "ScrippsCPA")
+company.clients << client
+
+project = Project.create(name: "208 Bergen", subtype: "office")
+client.projects << project
+
+piece = Piece.create(name: "Table")
+project.pieces << piece
+
+
+project = Project.create(name: "1433 Snyder Gulch", subtype: 'home')
+client.projects << project

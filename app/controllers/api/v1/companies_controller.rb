@@ -14,4 +14,9 @@ class Api::V1::CompaniesController < ApplicationController
     render json: @company.get_master_schedule
   end
 
+  def all_projects
+    projects = Company.find(params[:id]).projects
+    render json: projects
+  end
+
 end

@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-
+  resources :procedures
   get 'api/v1/companies/:id/master_schedule', to: 'api/v1/companies#master_schedule'
+  get 'api/v1/companies/:id/all_projects', to: 'api/v1/companies#all_projects'
   namespace :api do
     namespace :v1 do
       resources :companies do
         resources :services
         resources :clients do
-          resources :projects
+          resources :projects do
+            resources :pieces
+          end
         end
         resources :employees do
           resources :schedules

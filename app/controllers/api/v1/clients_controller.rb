@@ -15,6 +15,11 @@ class Api::V1::ClientsController < ApplicationController
     end
   end
 
+  def show
+    client = Client.find(params['id'])
+    render json: client
+  end
+
   def update
     client_info = params['client']
     client = Client.find(params['id'])
