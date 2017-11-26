@@ -9,14 +9,30 @@ class Api::V1::CompaniesController < ApplicationController
     render json: @company
   end
 
+  def update
+    company_info = params['company']
+    company = Compnay.find(params[:id])
+    if company.update(name: company_info['name'])
+      render json: company
+    else
+      render json: {errors: company.errors.full_messages}, status: 422
+    end
+  end
+
   def master_schedule
-    @company = Company.find(params['id'])
-    render json: @company.get_master_schedule
+    render json: Company.find(params['id']).master_schedule
   end
 
   def all_projects
-    projects = Company.find(params[:id]).projects
-    render json: projects
+    render json: Company.find(params[:id]).projects
+  end
+
+  def all_pieces
+    render json: Company.find(params[:id]).pieces
+  end
+
+  def all_procedures
+    render json: Company.find(params[:id]).procedures
   end
 
 end

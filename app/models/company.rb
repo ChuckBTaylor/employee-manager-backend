@@ -15,8 +15,8 @@ class Company < ApplicationRecord
   end
 
 
-  def get_master_schedule
-    master_schedule = self.employees.map do |employee|
+  def master_schedule
+    self.employees.map do |employee|
       employee.schedules
     end.flatten
   end
@@ -27,5 +27,16 @@ class Company < ApplicationRecord
     end.flatten
   end
 
+  def pieces
+    self.projects.map do |project|
+      project.pieces
+    end.flatten
+  end
+
+  def procedures
+    self.pieces.map do |piece|
+      piece.procedures
+    end.flatten
+  end
 
 end

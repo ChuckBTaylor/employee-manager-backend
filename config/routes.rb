@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :procedures
   get 'api/v1/companies/:id/master_schedule', to: 'api/v1/companies#master_schedule'
   get 'api/v1/companies/:id/all_projects', to: 'api/v1/companies#all_projects'
+  get 'api/v1/companies/:id/all_pieces', to: 'api/v1/companies#all_pieces'
+  get 'api/v1/companies/:id/all_procedures', to: 'api/v1/companies#all_procedures'
+  
   namespace :api do
     namespace :v1 do
       resources :companies do
