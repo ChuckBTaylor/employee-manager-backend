@@ -29,11 +29,11 @@ ActiveRecord::Schema.define(version: 20171126004430) do
 
   create_table "employees", force: :cascade do |t|
     t.string "name"
-    t.boolean "is_admin"
+    t.boolean "is_admin", default: false
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "schedule_color", default: "red"
+    t.string "schedule_color", default: "#00AA00"
     t.index ["company_id"], name: "index_employees_on_company_id"
   end
 
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20171126004430) do
     t.bigint "service_id"
     t.bigint "piece_id"
     t.float "expected_time"
-    t.boolean "complete", default: false
+    t.boolean "completed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["piece_id"], name: "index_procedures_on_piece_id"

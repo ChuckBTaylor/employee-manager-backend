@@ -16,9 +16,23 @@ company.employees << Employee.create(name: "Rachel", schedule_color: '#AA0080')
 company.employees << Employee.create(name: "Ty", schedule_color: '#0AA080')
 company.employees << Employee.create(name: "Sean", schedule_color: '#00AA80')
 
-company.services << Service.create(name: "Materials")
-company.services << Service.create(name: "Roof Raise")
-company.services << Service.create(name: "Joining")
+materials = Service.create(name: "Materials")
+company.services << materials
+roof_raise = Service.create(name: "Roof Raise")
+company.services << roof_raise
+joining = Service.create(name: "Joining")
+company.services << joining
+sanding = Service.create(name: "Sanding")
+company.services << sanding
+milling = Service.create(name: "Milling")
+company.services << milling
+polishing = Service.create(name: "Polishing")
+company.services << polishing
+cutting = Service.create(name: "Cutting")
+company.services << cutting
+finishing = Service.create(name: "Finishing")
+company.services << finishing
+
 
 
 client = Client.create(name: "Hucklberry Roasters")
@@ -33,9 +47,17 @@ client.projects << project
 
 piece = Piece.create(name: "Shelves")
 project.pieces << piece
+procedure = Procedure.create(expected_time: 2.00, service: milling, piece: piece)
+procedure = Procedure.create(expected_time: 1.00, service: finishing, piece: piece)
+procedure = Procedure.create(expected_time: 1.50, service: sanding, piece: piece)
+
+
 
 piece = Piece.create(name: "Table")
 project.pieces << piece
+procedure = Procedure.create(expected_time: 2.00, service: milling, piece: piece)
+procedure = Procedure.create(expected_time: 1.00, service: finishing, piece: piece)
+procedure = Procedure.create(expected_time: 1.50, service: sanding, piece: piece)
 
 
 
@@ -47,7 +69,17 @@ client.projects << project
 
 piece = Piece.create(name: "Table")
 project.pieces << piece
+procedure = Procedure.create(expected_time: 2.00, service: milling, piece: piece)
+procedure = Procedure.create(expected_time: 1.00, service: finishing, piece: piece)
+procedure = Procedure.create(expected_time: 1.50, service: sanding, piece: piece)
 
 
 project = Project.create(name: "1433 Snyder Gulch", subtype: 'home')
 client.projects << project
+
+piece = Piece.create(name: "Deck")
+project.pieces << piece
+procedure = Procedure.create(expected_time: 2.00, service: milling, piece: piece)
+procedure = Procedure.create(expected_time: 1.00, service: finishing, piece: piece)
+procedure = Procedure.create(expected_time: 1.50, service: sanding, piece: piece)
+procedure = Procedure.create(expected_time: 1.50, service: cutting, piece: piece)
