@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126004430) do
+ActiveRecord::Schema.define(version: 20171129191430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,14 +42,15 @@ ActiveRecord::Schema.define(version: 20171126004430) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "complete", default: false
     t.index ["project_id"], name: "index_pieces_on_project_id"
   end
 
   create_table "procedures", force: :cascade do |t|
     t.bigint "service_id"
     t.bigint "piece_id"
-    t.float "expected_time"
-    t.boolean "completed", default: false
+    t.float "estimated_time"
+    t.boolean "complete", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["piece_id"], name: "index_procedures_on_piece_id"
@@ -58,10 +59,11 @@ ActiveRecord::Schema.define(version: 20171126004430) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.string "subtype"
+    t.string "subtype", default: "basic"
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "complete", default: false
     t.index ["client_id"], name: "index_projects_on_client_id"
   end
 
@@ -82,6 +84,7 @@ ActiveRecord::Schema.define(version: 20171126004430) do
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "default_time", default: 2.0
     t.index ["company_id"], name: "index_services_on_company_id"
   end
 

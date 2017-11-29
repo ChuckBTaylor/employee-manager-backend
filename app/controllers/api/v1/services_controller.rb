@@ -1,14 +1,13 @@
 class Api::V1::ServicesController < ApplicationController
 
   def index
-    services = Company.find(params[:company_id]).services
-    render json: services
+    render json: Company.find(params[:company_id]).services
   end
 
   def create
-    service_info = params['service']
-    service = Service.new(name: service_info['name'])
-    if Company.find(params['company_id']).services << service
+    service_info = params[:service]
+    service = Service.new(name: service_info[:name])
+    if Company.find(params[:company_id]).services << service
       render json: service
     else
       render json: {errors: service.errors.full_messages}, status: 422
@@ -16,9 +15,9 @@ class Api::V1::ServicesController < ApplicationController
   end
 
   def update
-    service_info = params['service']
-    service = Service.find(params['id'])
-    if service.update(name: service_info['name'])
+    service_info = params[:service]
+    service = Service.find(params[:id])
+    if service.update(name: service_info[:name])
       render json: service
     else
       render json: {errors: service.errors.full_messages}, status: 422
@@ -26,7 +25,7 @@ class Api::V1::ServicesController < ApplicationController
   end
 
   def destroy
-    Service.destroy(params['service']['id'])
+    Service.destroy(params[:service][:id])
     render json: Service.all
   end
 
