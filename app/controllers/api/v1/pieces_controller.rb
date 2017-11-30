@@ -25,7 +25,22 @@ class Api::V1::PiecesController < ApplicationController
     piece_info = params[:piece]
     piece = Piece.find(piece_info[:id])
     if piece.update(name: piece_info[:name])
-      render json: piece
+
+      piece.procedures.each do |procedure|
+        if !params[:service_ids].include?(procedure.service_id)
+          Procedure.destroy(procedure.id)
+        end
+      end
+
+      this_pieces_service_ids = piece.get_service_ids
+
+      procedures = params[:service_ids].each_with_object([]) do |service_id, array|
+        if !this_pieces_service_ids.include?(service_id)
+          array.push(Procedure.create(piece: piece, service_id: service_id))
+        end
+      end
+
+      render json: {piece: piece, procedures: procedures}
     else
       render json: {errors: piece.errors.full_messages}, status: 422
     end
