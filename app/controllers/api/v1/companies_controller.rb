@@ -4,6 +4,11 @@ class Api::V1::CompaniesController < ApplicationController
     render json: @companies
   end
 
+  def create
+    company_info = params[:company]
+    company = Company.new(name: company_info[:name])
+  end
+
   def show
     @company = Company.find(params[:id])
     render json: @company

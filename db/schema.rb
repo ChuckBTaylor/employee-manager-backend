@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129191430) do
+ActiveRecord::Schema.define(version: 20171130015203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20171129191430) do
     t.datetime "updated_at", null: false
     t.string "schedule_color", default: "#00AA00"
     t.index ["company_id"], name: "index_employees_on_company_id"
+  end
+
+  create_table "operations", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.bigint "procedure_id"
+    t.float "hours"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_operations_on_employee_id"
+    t.index ["procedure_id"], name: "index_operations_on_procedure_id"
   end
 
   create_table "pieces", force: :cascade do |t|
@@ -90,6 +100,8 @@ ActiveRecord::Schema.define(version: 20171129191430) do
 
   add_foreign_key "clients", "companies"
   add_foreign_key "employees", "companies"
+  add_foreign_key "operations", "employees"
+  add_foreign_key "operations", "procedures"
   add_foreign_key "pieces", "projects"
   add_foreign_key "procedures", "pieces"
   add_foreign_key "procedures", "services"

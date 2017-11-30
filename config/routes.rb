@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'api/v1/companies/:id/master_schedule', to: 'api/v1/companies#master_schedule'
 
   namespace :api do
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
         resources :projects
         resources :pieces
         resources :procedures
+        resources :operations
         resources :employees do
           resources :schedules
         end
