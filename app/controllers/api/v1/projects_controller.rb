@@ -1,8 +1,7 @@
 class Api::V1::ProjectsController < ApplicationController
 
   def index
-    projects = Client.find(params['client_id']).projects
-    render json: projects
+    render json: Company.find(params[:company_id]).projects
   end
 
   def show
@@ -10,9 +9,9 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def create
-    project_info = params['project']
-    project = Project.new(name: project_info['name'])
-    if Client.find(params[:client_id]).projects << project
+    project_info = params[:project]
+    project = Project.new(name: project_info[:name])
+    if Client.find(project_info[:client_id]).projects << project
       render json: project
     else
       render json: {errors: project.errors.full_messages}, status: 422
@@ -20,9 +19,9 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def update
-    project_info = params['project']
-    project = Project.find(project_info['id'])
-    if project.update(name: project_info['name'])
+    project_info = params[:project]
+    project = Project.find(project_info[:id])
+    if project.update(name: project_info[:name])
       render json: project
     else
       render json: {errors: project.errors.full_messages}, status: 422
@@ -30,7 +29,7 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def destroy
-    Project.destroy(params['project']['id'])
+    Project.destroy(params[:project][:id])
     render json: Project.all
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126004430) do
+ActiveRecord::Schema.define(version: 20171201223547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,19 +37,58 @@ ActiveRecord::Schema.define(version: 20171126004430) do
     t.index ["company_id"], name: "index_employees_on_company_id"
   end
 
+  create_table "operations", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.bigint "procedure_id"
+    t.float "hours"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name", default: ""
+    t.index ["employee_id"], name: "index_operations_on_employee_id"
+    t.index ["procedure_id"], name: "index_operations_on_procedure_id"
+  end
+
+  create_table "operations_planners", force: :cascade do |t|
+    t.bigint "planner_id"
+    t.bigint "operation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["operation_id"], name: "index_operations_planners_on_operation_id"
+    t.index ["planner_id"], name: "index_operations_planners_on_planner_id"
+  end
+
   create_table "pieces", force: :cascade do |t|
     t.bigint "project_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "complete", default: false
     t.index ["project_id"], name: "index_pieces_on_project_id"
+  end
+
+  create_table "planners", force: :cascade do |t|
+    t.date "monday"
+    t.date "friday"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_planners_on_company_id"
+  end
+
+  create_table "planners_projects", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "planner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["planner_id"], name: "index_planners_projects_on_planner_id"
+    t.index ["project_id"], name: "index_planners_projects_on_project_id"
   end
 
   create_table "procedures", force: :cascade do |t|
     t.bigint "service_id"
     t.bigint "piece_id"
-    t.float "expected_time"
-    t.boolean "completed", default: false
+    t.float "estimated_time"
+    t.boolean "complete", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["piece_id"], name: "index_procedures_on_piece_id"
@@ -58,10 +97,11 @@ ActiveRecord::Schema.define(version: 20171126004430) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.string "subtype"
+    t.string "subtype", default: "basic"
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "complete", default: false
     t.index ["client_id"], name: "index_projects_on_client_id"
   end
 
@@ -82,12 +122,20 @@ ActiveRecord::Schema.define(version: 20171126004430) do
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "default_time", default: 2.0
     t.index ["company_id"], name: "index_services_on_company_id"
   end
 
   add_foreign_key "clients", "companies"
   add_foreign_key "employees", "companies"
+  add_foreign_key "operations", "employees"
+  add_foreign_key "operations", "procedures"
+  add_foreign_key "operations_planners", "operations"
+  add_foreign_key "operations_planners", "planners"
   add_foreign_key "pieces", "projects"
+  add_foreign_key "planners", "companies"
+  add_foreign_key "planners_projects", "planners"
+  add_foreign_key "planners_projects", "projects"
   add_foreign_key "procedures", "pieces"
   add_foreign_key "procedures", "services"
   add_foreign_key "projects", "clients"

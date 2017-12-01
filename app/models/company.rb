@@ -3,6 +3,7 @@ class Company < ApplicationRecord
   has_many :services
   has_many :clients
   has_many :services
+  has_many :planners
 
   validates :name, presence: true
 
