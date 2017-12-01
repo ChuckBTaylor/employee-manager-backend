@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :operations_planners
   get 'api/v1/companies/:id/master_schedule', to: 'api/v1/companies#master_schedule'
-
+  post 'api/v1/companies/:company_id/planners/:id/add_project', to: 'api/v1/planners#add_project'
+  delete 'api/v1/companies/:company_id/planners/:id/remove_project', to: 'api/v1/planners#remove_project'
   namespace :api do
     namespace :v1 do
       resources :companies do

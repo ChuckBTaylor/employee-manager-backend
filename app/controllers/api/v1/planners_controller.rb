@@ -6,15 +6,31 @@ class Api::V1::PlannersController < ApplicationController
   end
 
   def show
-    year = params[:id][0..3].to_i
-    month = params[:id][4..5].to_i
-    day = params[:id][6..7].to_i
-    date = Date.new(year, month, day).beginning_of_week
-    planner = Planner.find_by(monday: date)
-    projects_ids = planner.projects.map do |project|
+    planner = Planner.find(params[:id])
+    project_ids = planner.projects.map do |project|
       project.id
     end
-    render json: projects_ids
+    render json: {planner_id: planner.id, project_ids: project_ids}
   end
+
+  def add_project
+    planner = Planner.find(params[:planner][:id])
+    planner.projects << Project.find(params[:planner][:project_id])
+    render json: planner
+  end
+
+  def remove_project
+    planner = Planner.find(params[:planner][:id])
+    pp = PlannersProject.find_by(planner: planner, project_id: params[:planner][:project_id])
+    PlannersProject.destroy(pp.id)
+    render json: planner
+  end
+
+  private
+
+  def planner_params
+    params.require(:planner).permit(:id, :project_id, :project_ids)
+  end
+
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130230418) do
+ActiveRecord::Schema.define(version: 20171201223547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 20171130230418) do
     t.index ["procedure_id"], name: "index_operations_on_procedure_id"
   end
 
+  create_table "operations_planners", force: :cascade do |t|
+    t.bigint "planner_id"
+    t.bigint "operation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["operation_id"], name: "index_operations_planners_on_operation_id"
+    t.index ["planner_id"], name: "index_operations_planners_on_planner_id"
+  end
+
   create_table "pieces", force: :cascade do |t|
     t.bigint "project_id"
     t.string "name"
@@ -67,8 +76,10 @@ ActiveRecord::Schema.define(version: 20171130230418) do
   end
 
   create_table "planners_projects", force: :cascade do |t|
-    t.bigint "planner_id"
     t.bigint "project_id"
+    t.bigint "planner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["planner_id"], name: "index_planners_projects_on_planner_id"
     t.index ["project_id"], name: "index_planners_projects_on_project_id"
   end
@@ -119,6 +130,8 @@ ActiveRecord::Schema.define(version: 20171130230418) do
   add_foreign_key "employees", "companies"
   add_foreign_key "operations", "employees"
   add_foreign_key "operations", "procedures"
+  add_foreign_key "operations_planners", "operations"
+  add_foreign_key "operations_planners", "planners"
   add_foreign_key "pieces", "projects"
   add_foreign_key "planners", "companies"
   add_foreign_key "planners_projects", "planners"

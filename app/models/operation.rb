@@ -1,6 +1,8 @@
 class Operation < ApplicationRecord
   belongs_to :employee
   belongs_to :procedure
+  has_many :operations_planners
+  has_many :planners, through: :operations_planners
   before_create :set_operation_name
 
   def set_operation_name
