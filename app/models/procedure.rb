@@ -2,7 +2,7 @@ class Procedure < ApplicationRecord
   belongs_to :service, optional: true
   belongs_to :piece
   has_many :operations
-  before_save :set_estimated_time
+  before_create :set_estimated_time
 
   def set_estimated_time
     if self.service_id

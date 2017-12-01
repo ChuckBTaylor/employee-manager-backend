@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130015203) do
+ActiveRecord::Schema.define(version: 20171130230418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20171130015203) do
     t.float "hours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", default: ""
     t.index ["employee_id"], name: "index_operations_on_employee_id"
     t.index ["procedure_id"], name: "index_operations_on_procedure_id"
   end
@@ -54,6 +55,22 @@ ActiveRecord::Schema.define(version: 20171130015203) do
     t.datetime "updated_at", null: false
     t.boolean "complete", default: false
     t.index ["project_id"], name: "index_pieces_on_project_id"
+  end
+
+  create_table "planners", force: :cascade do |t|
+    t.date "monday"
+    t.date "friday"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_planners_on_company_id"
+  end
+
+  create_table "planners_projects", force: :cascade do |t|
+    t.bigint "planner_id"
+    t.bigint "project_id"
+    t.index ["planner_id"], name: "index_planners_projects_on_planner_id"
+    t.index ["project_id"], name: "index_planners_projects_on_project_id"
   end
 
   create_table "procedures", force: :cascade do |t|
@@ -103,6 +120,9 @@ ActiveRecord::Schema.define(version: 20171130015203) do
   add_foreign_key "operations", "employees"
   add_foreign_key "operations", "procedures"
   add_foreign_key "pieces", "projects"
+  add_foreign_key "planners", "companies"
+  add_foreign_key "planners_projects", "planners"
+  add_foreign_key "planners_projects", "projects"
   add_foreign_key "procedures", "pieces"
   add_foreign_key "procedures", "services"
   add_foreign_key "projects", "clients"

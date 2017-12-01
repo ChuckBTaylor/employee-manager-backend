@@ -23,6 +23,7 @@ company.employees << ty
 sean = Employee.create(name: "Sean", schedule_color: '#00AA80')
 company.employees << sean
 
+
 materials = Service.create(name: "Materials")
 company.services << materials
 roof_raise = Service.create(name: "Roof Raise", default_time: 4.50)
@@ -40,6 +41,11 @@ company.services << cutting
 finishing = Service.create(name: "Finishing", default_time: 0.5)
 company.services << finishing
 
+planner1 = Planner.create(monday: Date.today.beginning_of_week)
+company.planners << planner1
+
+planner2 = Planner.create(monday: Date.today.beginning_of_week + 1.weeks)
+company.planners << planner2
 
 
 client = Client.create(name: "Hucklberry Roasters")
@@ -47,10 +53,22 @@ company.clients << client
 
 project = Project.create(name: "Dairy Block", subtype: "restaurant")
 client.projects << project
+planner1.projects << project
+planner2.projects << project
+
+piece = Piece.create(name: "Shelving")
+project.pieces << piece
+
+procedure = Procedure.create(service: materials, piece: piece)
+operation = Operation.create(employee: will, procedure: procedure, hours: 0.5)
+
+procedure = Procedure.create(service: joining, piece: piece)
+operation = Operation.create(employee: jason, procedure: procedure, hours: 1.25)
 
 
 project = Project.create(name: "Pecos", subtype: "restaurant")
 client.projects << project
+planner1.projects << project
 
 piece = Piece.create(name: "Bar Tables")
 project.pieces << piece
@@ -94,6 +112,7 @@ company.clients << client
 
 project = Project.create(name: "208 Bergen", subtype: "office")
 client.projects << project
+planner1.projects << project
 
 piece = Piece.create(name: "Table")
 project.pieces << piece
@@ -113,6 +132,8 @@ Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
 
 project = Project.create(name: "1433 Snyder Gulch", subtype: 'home')
 client.projects << project
+planner2.projects << project
+planner1.projects << project
 
 piece = Piece.create(name: "Deck")
 project.pieces << piece
