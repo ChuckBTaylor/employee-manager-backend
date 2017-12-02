@@ -6,7 +6,7 @@ class Api::V1::OperationsController < ApplicationController
 
   def create
     operation_info = params[:operation]
-    operation = Operation.new(employee_id: operation_info[:employee_id], procedure_id: operation_info[:procedure_id], hours: operation_info[:hours])
+    operation = Operation.new(employee_id: operation_info[:employee_id], procedure_id: operation_info[:procedure_id], planner_id: operation_info[:planner_id], hours: operation_info[:hours])
     if operation.save
       render json: operation
     else
