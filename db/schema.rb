@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171201223547) do
+ActiveRecord::Schema.define(version: 20171202174131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,21 +40,14 @@ ActiveRecord::Schema.define(version: 20171201223547) do
   create_table "operations", force: :cascade do |t|
     t.bigint "employee_id"
     t.bigint "procedure_id"
+    t.bigint "planner_id"
     t.float "hours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", default: ""
     t.index ["employee_id"], name: "index_operations_on_employee_id"
+    t.index ["planner_id"], name: "index_operations_on_planner_id"
     t.index ["procedure_id"], name: "index_operations_on_procedure_id"
-  end
-
-  create_table "operations_planners", force: :cascade do |t|
-    t.bigint "planner_id"
-    t.bigint "operation_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["operation_id"], name: "index_operations_planners_on_operation_id"
-    t.index ["planner_id"], name: "index_operations_planners_on_planner_id"
   end
 
   create_table "pieces", force: :cascade do |t|
@@ -72,6 +65,7 @@ ActiveRecord::Schema.define(version: 20171201223547) do
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "allotted_time", default: 150.0
     t.index ["company_id"], name: "index_planners_on_company_id"
   end
 
@@ -129,9 +123,8 @@ ActiveRecord::Schema.define(version: 20171201223547) do
   add_foreign_key "clients", "companies"
   add_foreign_key "employees", "companies"
   add_foreign_key "operations", "employees"
+  add_foreign_key "operations", "planners"
   add_foreign_key "operations", "procedures"
-  add_foreign_key "operations_planners", "operations"
-  add_foreign_key "operations_planners", "planners"
   add_foreign_key "pieces", "projects"
   add_foreign_key "planners", "companies"
   add_foreign_key "planners_projects", "planners"

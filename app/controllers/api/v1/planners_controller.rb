@@ -5,6 +5,16 @@ class Api::V1::PlannersController < ApplicationController
     render json: planners
   end
 
+  def create
+    old_planner = Planner.last
+    planner = Planner.new(monday: old_planner.monday + 1.weeks)
+    if Company.find(params[:company_id]).planners << planner
+      render json: planner
+    else
+      render json: {erros: planner.errors.full_messages}
+    end
+  end
+
   def show
     planner = Planner.find(params[:id])
     project_ids = planner.projects.map do |project|

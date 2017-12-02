@@ -60,10 +60,10 @@ piece = Piece.create(name: "Shelving")
 project.pieces << piece
 
 procedure = Procedure.create(service: materials, piece: piece)
-operation = Operation.create(employee: will, procedure: procedure, hours: 0.5)
+operation = Operation.create(employee: will, procedure: procedure, hours: 0.5, planner: planner1)
 
 procedure = Procedure.create(service: joining, piece: piece)
-operation = Operation.create(employee: jason, procedure: procedure, hours: 1.25)
+operation = Operation.create(employee: jason, procedure: procedure, hours: 1.25, planner: planner2)
 
 
 project = Project.create(name: "Pecos", subtype: "restaurant")
@@ -77,16 +77,16 @@ piece = Piece.create(name: "Shelves")
 project.pieces << piece
 
 procedure = Procedure.create(service: milling, piece: piece)
-operation = Operation.create(employee: sean, procedure: procedure, hours: 1)
-operation = Operation.create(employee: ty, procedure: procedure, hours: 2)
+operation = Operation.create(employee: sean, procedure: procedure, hours: 1, planner: planner2)
+operation = Operation.create(employee: ty, procedure: procedure, hours: 2, planner: planner1)
 
 procedure = Procedure.create(service: finishing, piece: piece)
-operation = Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
-operation = Operation.create(employee: ty, procedure: procedure, hours: 1)
+operation = Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner1)
+operation = Operation.create(employee: ty, procedure: procedure, hours: 1, planner: planner1)
 
 procedure = Procedure.create(service: sanding, piece: piece)
-operation = Operation.create(employee: ben, procedure: procedure, hours: 2)
-operation = Operation.create(employee: jason, procedure: procedure, hours: 1.5)
+operation = Operation.create(employee: ben, procedure: procedure, hours: 2, planner: planner2)
+operation = Operation.create(employee: jason, procedure: procedure, hours: 1.5, planner: planner1)
 
 
 
@@ -94,16 +94,16 @@ piece = Piece.create(name: "Table")
 project.pieces << piece
 
 procedure = Procedure.create(service: milling, piece: piece)
-operation = Operation.create(employee: ty, procedure: procedure, hours: 1)
-operation = Operation.create(employee: sean, procedure: procedure, hours: 2)
+operation = Operation.create(employee: ty, procedure: procedure, hours: 1, planner: planner1)
+operation = Operation.create(employee: sean, procedure: procedure, hours: 2, planner: planner1)
 
 procedure = Procedure.create(service: finishing, piece: piece)
-Operation.create(employee: ben, procedure: procedure, hours: 0.5)
-Operation.create(employee: will, procedure: procedure, hours: 2)
+Operation.create(employee: ben, procedure: procedure, hours: 0.5, planner: planner1)
+Operation.create(employee: will, procedure: procedure, hours: 2, planner: planner1)
 
 procedure = Procedure.create(service: sanding, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner1)
+Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner1)
 
 
 
@@ -118,16 +118,16 @@ piece = Piece.create(name: "Table")
 project.pieces << piece
 
 procedure = Procedure.create(service: milling, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner2)
+Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner2)
 
 procedure = Procedure.create(service: finishing, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner1)
+Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner1)
 
 procedure = Procedure.create(service: sanding, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner2)
+Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner1)
 
 
 project = Project.create(name: "1433 Snyder Gulch", subtype: 'home')
@@ -138,17 +138,17 @@ planner1.projects << project
 piece = Piece.create(name: "Deck")
 project.pieces << piece
 procedure = Procedure.create(service: milling, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner1)
+Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner1)
 
 procedure = Procedure.create(service: finishing, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner1)
+Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner1)
 
 procedure = Procedure.create(service: sanding, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner2)
+Operation.create(employee: sean, procedure: procedure, hours: 1.25, planner: planner1)
 
 procedure = Procedure.create(service: cutting, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25)
+Operation.create(employee: charley, procedure: procedure, hours: 0.75, planner: planner1)
+Operation.create(employee: ty, procedure: procedure, hours: 1.25, planner: planner1)

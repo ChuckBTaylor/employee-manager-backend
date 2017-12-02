@@ -24,4 +24,14 @@ class Api::V1::OperationsController < ApplicationController
     end
   end
 
+  def get_week
+    render json: Planner.find(params[:planner_id]).operations
+  end
+
+  private
+
+  def operation_params
+    params.require(:operation).permit(:planner_id, :employee_id, :procedure_id, :hours)
+  end
+
 end
