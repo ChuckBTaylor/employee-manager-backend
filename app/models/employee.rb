@@ -4,4 +4,6 @@ class Employee < ApplicationRecord
   has_many :operations
 
   validates :name, presence: true
+
+  has_secure_password
 end

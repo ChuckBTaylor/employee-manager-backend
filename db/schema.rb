@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171202174131) do
+ActiveRecord::Schema.define(version: 20171203194506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20171202174131) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "schedule_color", default: "#00AA00"
+    t.string "password_digest"
     t.index ["company_id"], name: "index_employees_on_company_id"
   end
 

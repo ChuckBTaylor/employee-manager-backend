@@ -8,19 +8,19 @@
 
 company = Company.create(name: "Art Builder's Guild")
 
-jason = Employee.create(name: "Jason", is_admin: true, schedule_color: '#FF4500')
+jason = Employee.create(name: "Jason", is_admin: true, schedule_color: '#FF4500', password: 'dogs', password_confirmation: 'dogs')
 company.employees << jason
-charley = Employee.create(name: "Charley", is_admin: true, schedule_color: '#FFFF00')
+charley = Employee.create(name: "Charley", is_admin: true, schedule_color: '#FFFF00', password: 'dogs', password_confirmation: 'dogs')
 company.employees << charley
-ben = Employee.create(name: "Ben", is_admin: true, schedule_color: '#008000')
+ben = Employee.create(name: "Ben", is_admin: true, schedule_color: '#008000', password: 'dogs', password_confirmation: 'dogs')
 company.employees << ben
-will =  Employee.create(name: "Will", schedule_color: '#000080')
+will =  Employee.create(name: "Will", schedule_color: '#000080', password: 'dogs', password_confirmation: 'dogs')
 company.employees << will
-rachel = Employee.create(name: "Rachel", schedule_color: '#AA0080')
+rachel = Employee.create(name: "Rachel", schedule_color: '#AA0080', password: 'dogs', password_confirmation: 'dogs')
 company.employees << rachel
-ty = Employee.create(name: "Ty", schedule_color: '#0AA080')
+ty = Employee.create(name: "Ty", schedule_color: '#0AA080', password: 'dogs', password_confirmation: 'dogs')
 company.employees << ty
-sean = Employee.create(name: "Sean", schedule_color: '#00AA80')
+sean = Employee.create(name: "Sean", schedule_color: '#00AA80', password: 'dogs', password_confirmation: 'dogs')
 company.employees << sean
 
 

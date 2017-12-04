@@ -17,7 +17,10 @@ gem 'puma', '~> 3.7'
 # Use Redis adapter to run Action Cable in serviceion
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+
+# Use JWT for authentication with front end
+gem 'jwt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
