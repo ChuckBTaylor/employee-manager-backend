@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171203194506) do
+ActiveRecord::Schema.define(version: 20171204192214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171203194506) do
   create_table "clients", force: :cascade do |t|
     t.string "name"
     t.bigint "company_id"
+    t.boolean "active", default: true
     t.index ["company_id"], name: "index_clients_on_company_id"
   end
 
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20171203194506) do
     t.datetime "updated_at", null: false
     t.string "schedule_color", default: "#00AA00"
     t.string "password_digest"
+    t.boolean "active", default: true
     t.index ["company_id"], name: "index_employees_on_company_id"
   end
 
@@ -97,6 +99,7 @@ ActiveRecord::Schema.define(version: 20171203194506) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "complete", default: false
+    t.boolean "active", default: true
     t.index ["client_id"], name: "index_projects_on_client_id"
   end
 

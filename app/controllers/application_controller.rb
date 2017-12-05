@@ -1,7 +1,27 @@
 class ApplicationController < ActionController::API
 
+
+  def login # post user data, sends back jwt token and user info
+    # @user = User.find_by(name: user_params['name'])
+    employee = Employee.where('lower(name) = ?', params[:application][:name].downcase).first # we don't have params[:id] so we can't search by id or use the show action
+    if !employee
+      return render json: {errors: "No employee found", message: "Can't find an employee with the name #{params[:application][:name]}"}
+    end
+    if employee.authenticate(params[:application][:password])
+      render json: {
+        user: employee,
+        jwt_token: issue_token({user_id: employee.id, company_id: employee.company_id}),
+        message: "Success"
+      }
+    else
+      render json: {message: 'Password was incorrect', errors: employee.errors.full_messages}, status: 400
+    end
+  end
+
+  private
+
   def issue_token(payload)
-    JWT.encode(payload, 'supersecretcode')
+    JWT.encode(payload, supersecretcode)
   end
 
   def grab_token_from_request
@@ -12,7 +32,7 @@ class ApplicationController < ActionController::API
 
   def decode_token(token)
     begin
-      JWT.decode(token, 'supersecretcode')
+      JWT.decode(token, supersecretcode)
     rescue JWT::DecodeError
       []
     end
@@ -41,6 +61,14 @@ class ApplicationController < ActionController::API
 
   def authorized
     render json: {message: "Fail"} unless logged_in?
+  end
+
+  def supersecretcode
+    return 'supererseretcode'
+  end
+
+  def algorithm
+    'RS256'
   end
 
 

@@ -6,9 +6,8 @@ class Api::V1::ClientsController < ApplicationController
   end
 
   def create
-    client_info = params['client']
-    client = Client.new(name: client_info['name'])
-    if Company.find(params['company_id']).clients << client
+    client = Client.new(name: client_params[:name])
+    if Company.find(params[:company_id]).clients << client
       render json: client
     else
       render json: {errors: client.errors.full_messages}, status: 422
@@ -16,7 +15,7 @@ class Api::V1::ClientsController < ApplicationController
   end
 
   def show
-    client = Client.find(params['id'])
+    client = Client.find(params[:id])
     render json: client
   end
 
@@ -35,4 +34,11 @@ class Api::V1::ClientsController < ApplicationController
     render json: Client.all
   end
 
+
+  private
+
+
+  def client_params
+    params.require(:client).permit(:name, :company_id)
+  end
 end

@@ -1,7 +1,7 @@
 class Procedure < ApplicationRecord
   belongs_to :service, optional: true
   belongs_to :piece
-  has_many :operations
+  has_many :operations, dependent: :destroy
   before_create :set_estimated_time
 
   def set_estimated_time

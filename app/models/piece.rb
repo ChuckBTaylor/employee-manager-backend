@@ -1,6 +1,6 @@
 class Piece < ApplicationRecord
   belongs_to :project
-  has_many :procedures, dependent: :delete_all
+  has_many :procedures, dependent: :destroy
 
   def get_service_ids
     self.procedures.map do |procedure|
