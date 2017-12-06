@@ -7,6 +7,8 @@ class PlannersProcedure < ApplicationRecord
   before_create :update_piece_id
   before_create :update_project_id
 
+  validates_uniqueness_of :planner_id, scope: :procedure_id
+
   def update_project_id
     self.project_id = Piece.find(self.piece_id).project_id
   end
