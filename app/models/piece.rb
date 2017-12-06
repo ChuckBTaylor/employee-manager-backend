@@ -9,4 +9,13 @@ class Piece < ApplicationRecord
   end
 
 
+  def total_est
+    self.procedures.map(&:estimated_time).reduce(0, &:+)
+  end
+
+  def total_worked
+    self.procedures.map(&:total_worked).reduce(0, &:+)
+  end
+
+
 end

@@ -5,9 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 
 company = Company.create(name: "Art Builder's Guild")
-
+#
 jason = Employee.create(name: "Jason", is_admin: true, schedule_color: '#FF4500', password: 'dogs', password_confirmation: 'dogs')
 company.employees << jason
 charley = Employee.create(name: "Charley", is_admin: true, schedule_color: '#FFFF00', password: 'dogs', password_confirmation: 'dogs')
@@ -97,8 +98,8 @@ company.planners << planner_j1
 planner_demo = Planner.create(monday: Date.today.beginning_of_week)
 demo_company.planners << planner_demo
 
-planner_j2 = Planner.create(monday: Date.today.beginning_of_week + 1.weeks)
-company.planners << planner_j2
+# planner_j2 = Planner.create(monday: Date.today.beginning_of_week + 1.weeks)
+# company.planners << planner_j2
 
 # planner_demo = Planner.create(monday: Date.today.beginning_of_week + 1.weeks)
 # demo_company.planners << planner_j12
@@ -112,112 +113,122 @@ demo_company.clients << client_demo
 
 project = Project.create(name: "Dairy Block", subtype: "restaurant")
 client.projects << project
-planner_j1.projects << project
-planner_j2.projects << project
 
-project_demo = Project.create(name: "Dairy Block", subtype: "restaurant")
-client_demo.projects << project_demo
-planner_demo.projects << project_demo
-# planner_demo.projects << project2
+
+project_demo = Project.create(name: "Milk Block", subtype: "restaurant")
+
 
 piece = Piece.create(name: "Shelving")
 project.pieces << piece
 
 procedure = Procedure.create(service: materials, piece: piece)
-operation = Operation.create(employee: will, procedure: procedure, hours: 0.5, planner: planner_j1)
+
+pp = PlannersProcedure.create(planner: planner_j1, procedure: procedure)
+
+operation = Operation.create(employee: will, pp: pp, hours: 0.5)
+operation = Operation.create(employee: sean, pp: pp, hours: 0.75)
 
 procedure = Procedure.create(service: joining, piece: piece)
-operation = Operation.create(employee: jason, procedure: procedure, hours: 1.25, planner: planner_j1)
+pp = PlannersProcedure.create(planner: planner_j1, procedure: procedure)
+operation = Operation.create(employee: jason, pp: pp, hours: 1.25)
 
 
+# procedure = Procedure.create(service: joining, piece: piece)
+# operation = Operation.create(employee: jason, procedure: procedure, hours: 1.25, planner: planner_j1)
+#
+#
 project = Project.create(name: "Pecos", subtype: "restaurant")
 client.projects << project
-planner_j1.projects << project
-planner_j2.projects << project
-
+#
+#
 piece = Piece.create(name: "Bar Tables")
 project.pieces << piece
-
+procedure = Procedure.create(service: sanding, piece: piece)
+pp = PlannersProcedure.create(planner: planner_j1, procedure: procedure)
+operation = Operation.create(employee: sean, pp: pp, hours: 1.00)
+#
 piece = Piece.create(name: "Shelves")
 project.pieces << piece
-
 procedure = Procedure.create(service: milling, piece: piece)
-operation = Operation.create(employee: sean, procedure: procedure, hours: 1, planner: planner_j1)
-operation = Operation.create(employee: ty, procedure: procedure, hours: 2, planner: planner_j2)
-
-procedure = Procedure.create(service: finishing, piece: piece)
-operation = Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
-operation = Operation.create(employee: ty, procedure: procedure, hours: 1, planner: planner_j2)
-
-procedure = Procedure.create(service: sanding, piece: piece)
-operation = Operation.create(employee: ben, procedure: procedure, hours: 2, planner: planner_j1)
-operation = Operation.create(employee: jason, procedure: procedure, hours: 1.5, planner: planner_j2)
-
-
-
-piece = Piece.create(name: "Table")
-project.pieces << piece
-
-procedure = Procedure.create(service: milling, piece: piece)
-operation = Operation.create(employee: ty, procedure: procedure, hours: 1, planner: planner_j1)
-operation = Operation.create(employee: sean, procedure: procedure, hours: 2, planner: planner_j1)
-
-procedure = Procedure.create(service: finishing, piece: piece)
-Operation.create(employee: ben, procedure: procedure, hours: 0.5, planner: planner_j1)
-Operation.create(employee: will, procedure: procedure, hours: 2, planner: planner_j1)
-
-procedure = Procedure.create(service: sanding, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
-
-
-
+pp = PlannersProcedure.create(procedure: procedure, planner: planner_j1)
+operation = Operation.create(employee: rachel, pp: pp, hours: 0.75)
+operation = Operation.create(employee: ty, pp: pp, hours: 1.25)
+#
+# procedure = Procedure.create(service: milling, piece: piece)
+# operation = Operation.create(employee: sean, procedure: procedure, hours: 1, planner: planner_j1)
+# operation = Operation.create(employee: ty, procedure: procedure, hours: 2, planner: planner_j2)
+#
+# procedure = Procedure.create(service: finishing, piece: piece)
+# operation = Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
+# operation = Operation.create(employee: ty, procedure: procedure, hours: 1, planner: planner_j2)
+#
+# procedure = Procedure.create(service: sanding, piece: piece)
+# operation = Operation.create(employee: ben, procedure: procedure, hours: 2, planner: planner_j1)
+# operation = Operation.create(employee: jason, procedure: procedure, hours: 1.5, planner: planner_j2)
+#
+#
+#
+# piece = Piece.create(name: "Table")
+# project.pieces << piece
+#
+# procedure = Procedure.create(service: milling, piece: piece)
+# operation = Operation.create(employee: ty, procedure: procedure, hours: 1, planner: planner_j1)
+# operation = Operation.create(employee: sean, procedure: procedure, hours: 2, planner: planner_j1)
+#
+# procedure = Procedure.create(service: finishing, piece: piece)
+# Operation.create(employee: ben, procedure: procedure, hours: 0.5, planner: planner_j1)
+# Operation.create(employee: will, procedure: procedure, hours: 2, planner: planner_j1)
+#
+# procedure = Procedure.create(service: sanding, piece: piece)
+# Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
+#
+#
+#
 client = Client.create(name: "ScrippsCPA")
 company.clients << client
-
-client2 = Client.create(name: "TaylorCPA")
-demo_company.clients << client2
-
+#
+# client2 = Client.create(name: "TaylorCPA")
+# demo_company.clients << client2
+#
 project = Project.create(name: "208 Bergen", subtype: "office")
 client.projects << project
-planner_j1.projects << project
-planner_j2.projects << project
-
-piece = Piece.create(name: "Table")
+#
+piece = Piece.create(name: "Office Table")
 project.pieces << piece
-
+#
 procedure = Procedure.create(service: milling, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
-
-procedure = Procedure.create(service: finishing, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
-
-procedure = Procedure.create(service: sanding, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
-
-
-project = Project.create(name: "1433 Snyder Gulch", subtype: 'home')
-client.projects << project
-planner_j1.projects << project
-planner_j2.projects << project
-
-piece = Piece.create(name: "Deck")
-project.pieces << piece
-procedure = Procedure.create(service: milling, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
-
-procedure = Procedure.create(service: finishing, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j2)
-
-procedure = Procedure.create(service: sanding, piece: piece)
-Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: sean, procedure: procedure, hours: 1.25, planner: planner_j1)
-
-procedure = Procedure.create(service: cutting, piece: piece)
-Operation.create(employee: charley, procedure: procedure, hours: 0.75, planner: planner_j1)
-Operation.create(employee: ty, procedure: procedure, hours: 1.25, planner: planner_j2)
+pp = PlannersProcedure.create(procedure: procedure, planner: planner_j1)
+# Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
+#
+# procedure = Procedure.create(service: finishing, piece: piece)
+# Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
+#
+# procedure = Procedure.create(service: sanding, piece: piece)
+# Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
+#
+#
+# project = Project.create(name: "1433 Snyder Gulch", subtype: 'home')
+# client.projects << project
+#
+#
+# piece = Piece.create(name: "Deck")
+# project.pieces << piece
+# procedure = Procedure.create(service: milling, piece: piece)
+# Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j1)
+#
+# procedure = Procedure.create(service: finishing, piece: piece)
+# Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: rachel, procedure: procedure, hours: 1.25, planner: planner_j2)
+#
+# procedure = Procedure.create(service: sanding, piece: piece)
+# Operation.create(employee: jason, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: sean, procedure: procedure, hours: 1.25, planner: planner_j1)
+#
+# procedure = Procedure.create(service: cutting, piece: piece)
+# Operation.create(employee: charley, procedure: procedure, hours: 0.75, planner: planner_j1)
+# Operation.create(employee: ty, procedure: procedure, hours: 1.25, planner: planner_j2)

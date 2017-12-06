@@ -1,0 +1,22 @@
+class PlannersProcedure < ApplicationRecord
+  belongs_to :planner
+  belongs_to :procedure
+  has_many :operations, dependent: :destroy
+  before_create :set_allotted_time
+
+  before_create :update_piece_id
+  before_create :update_project_id
+
+  def update_project_id
+    self.project_id = Piece.find(self.piece_id).project_id
+  end
+
+  def update_piece_id
+    self.piece_id = self.procedure.piece_id
+  end
+
+  def set_allotted_time
+    self.allotted_time = Procedure.find(self.procedure_id).estimated_time
+  end
+
+end

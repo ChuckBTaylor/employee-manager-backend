@@ -17,22 +17,19 @@ class Api::V1::PlannersController < ApplicationController
 
   def show
     planner = Planner.find(params[:id])
-    project_ids = planner.projects.map do |project|
-      project.id
-    end
-    render json: {planner_id: planner.id, project_ids: project_ids}
+    render json: {planner_id: planner.id, pps: planner.pps, operations: planner.operations}
   end
 
-  def add_project
+  def add_procedure
     planner = Planner.find(params[:planner][:id])
-    planner.projects << Project.find(params[:planner][:project_id])
+    planner.procedures << Procedure.find(params[:planner][:procedure_id])
     render json: planner
   end
 
-  def remove_project
+  def remove_procedure
     planner = Planner.find(params[:planner][:id])
-    pp = PlannersProject.find_by(planner: planner, project_id: params[:planner][:project_id])
-    PlannersProject.destroy(pp.id)
+    pp = PlannersProcedures.find_by(planner: planner, procedure_id: params[:planner][:procedure_id])
+    PlannersProcedures.destroy(pp.id)
     render json: planner
   end
 
@@ -48,7 +45,7 @@ class Api::V1::PlannersController < ApplicationController
   private
 
   def planner_params
-    params.require(:planner).permit(:id, :project_id, :project_ids, :allotted_time)
+    params.require(:planner).permit(:id, :procedure_id, :procedure_ids, :allotted_time)
   end
 
 
