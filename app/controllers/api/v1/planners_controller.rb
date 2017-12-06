@@ -20,19 +20,6 @@ class Api::V1::PlannersController < ApplicationController
     render json: {planner_id: planner.id, pps: planner.pps, operations: planner.operations}
   end
 
-  def add_procedure
-    planner = Planner.find(params[:planner][:id])
-    planner.procedures << Procedure.find(params[:planner][:procedure_id])
-    render json: planner
-  end
-
-  def remove_procedure
-    planner = Planner.find(params[:planner][:id])
-    pp = PlannersProcedures.find_by(planner: planner, procedure_id: params[:planner][:procedure_id])
-    PlannersProcedures.destroy(pp.id)
-    render json: planner
-  end
-
   def update
     planner = Planner.find(planner_params[:id])
     if planner.update(allotted_time: planner_params[:allotted_time])
