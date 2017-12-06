@@ -5,8 +5,7 @@ class Api::V1::OperationsController < ApplicationController
   end
 
   def create
-    operation_info = params[:operation]
-    operation = Operation.new(employee_id: operation_info[:employee_id], procedure_id: operation_info[:procedure_id], planner_id: operation_info[:planner_id], hours: operation_info[:hours])
+    operation = Operation.new(employee_id: operation_params[:employee_id], planners_procedure_id: operation_params[:planners_procedure_id], hours: operation_params[:hours])
     if operation.save
       render json: operation
     else
@@ -31,7 +30,7 @@ class Api::V1::OperationsController < ApplicationController
   private
 
   def operation_params
-    params.require(:operation).permit(:planner_id, :employee_id, :procedure_id, :hours)
+    params.require(:operation).permit(:employee_id, :planners_procedure_id, :hours)
   end
 
 end

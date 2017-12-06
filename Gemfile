@@ -22,6 +22,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Use JWT for authentication with front end
 gem 'jwt'
 
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
