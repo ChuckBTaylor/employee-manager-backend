@@ -6,6 +6,7 @@ class PlannersProcedure < ApplicationRecord
 
   before_create :update_piece_id
   before_create :update_project_id
+  after_save :inform_procedure
 
   validates_uniqueness_of :planner_id, scope: :procedure_id
 
@@ -19,6 +20,16 @@ class PlannersProcedure < ApplicationRecord
 
   def set_allotted_time
     self.allotted_time = Procedure.find(self.procedure_id).estimated_time
+  end
+
+  def total_worked
+    self.operations.map(&:hours).reduce(0, &:+)
+  end
+
+  private
+
+  def inform_procedure
+    self.procedure.pps.map(&:total_worked).inject(0, &:+)
   end
 
 end

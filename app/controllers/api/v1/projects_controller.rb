@@ -6,7 +6,7 @@ class Api::V1::ProjectsController < ApplicationController
 
   def show
     project = Project.find(params[:id])
-    render json: {project: project, total_est: project.total_est, total_worked: project.total_worked}
+    render json: {project: project, total_est: project.total_est, total_worked: project.total_worked, procedure_sheet: project.build_procedure_sheet}
   end
 
   def create
