@@ -9,10 +9,11 @@ class Api::V1::PiecesController < ApplicationController
   end
 
   def create
-    piece_info = params[:piece]
-    piece = Piece.new(name: piece_info[:name])
-    if Project.find(piece_info[:project_id]).pieces << piece
-      procedures = params[:service_ids].map do |service_id|
+    piece_params = params[:piece]
+    piece = Piece.new(name: piece_params[:name])
+    project = Project.find(piece_params[:project_id])
+    if project.pieces << piece
+      procedures = piece_params[:service_ids].map do |service_id|
         Procedure.create(piece: piece, service_id: service_id)
       end
       render json: {piece: piece, procedures: procedures}
@@ -22,19 +23,17 @@ class Api::V1::PiecesController < ApplicationController
   end
 
   def update
-    piece_info = params[:piece]
-    piece = Piece.find(piece_info[:id])
-    if piece.update(name: piece_info[:name])
-
+    piece = Piece.find(piece_params[:id])
+    if piece.update(name: piece_params[:name])
       piece.procedures.each do |procedure|
-        if !params[:service_ids].include?(procedure.service_id)
+        if !piece_params[:service_ids].include?(procedure.service_id)
           Procedure.destroy(procedure.id)
         end
       end
 
       this_pieces_service_ids = piece.get_service_ids
 
-      procedures = params[:service_ids].each_with_object([]) do |service_id, array|
+      procedures = piece_params[:service_ids].each_with_object([]) do |service_id, array|
         if !this_pieces_service_ids.include?(service_id)
           array.push(Procedure.create(piece: piece, service_id: service_id))
         end
@@ -49,6 +48,13 @@ class Api::V1::PiecesController < ApplicationController
   def destroy
     Piece.destroy(params[:piece][:id])
     render json: Piece.all
+  end
+
+
+  private
+
+  def piece_params
+    params.require(:piece).permit(:id, :name, :complete, :project_id, :service_ids => [])
   end
 
 end

@@ -5,6 +5,7 @@ class Api::V1::OperationsController < ApplicationController
   end
 
   def create
+    puts params
     operation = Operation.new(employee_id: operation_params[:employee_id], planners_procedure_id: operation_params[:planners_procedure_id], hours: operation_params[:hours])
     if operation.save
       render json: operation

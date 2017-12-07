@@ -9,7 +9,6 @@ class Api::V1::EmployeesController < ApplicationController
 
   def create
     employee_info = params[:employee]
-    byebug
     employee = Employee.new(name: employee_info[:name], schedule_color: employee_info[:schedule_color], is_admin: employee_info[:is_admin], password: employee_info[:password], password_confirmation: employee_info[:password_confirmation])
     if employee.save
       Company.find(params[:company_id]).employees << employee

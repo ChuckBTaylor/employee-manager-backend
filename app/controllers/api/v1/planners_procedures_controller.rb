@@ -2,6 +2,7 @@ class Api::V1::PlannersProceduresController < ApplicationController
 
   def create
     pp = PlannersProcedure.new(planner_id: ppp[:planner_id], procedure_id: ppp[:procedure_id])
+    puts "hi"
     if pp.save
       render json: pp
     else

@@ -6,6 +6,7 @@ class Api::V1::ClientsController < ApplicationController
   end
 
   def create
+    puts "hi"
     client = Client.new(name: client_params[:name])
     if Company.find(params[:company_id]).clients << client
       render json: client
