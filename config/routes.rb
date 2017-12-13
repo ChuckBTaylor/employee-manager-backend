@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post '/api/v1/login', to: 'application#login'
   get 'api/v1/companies/:id/master_schedule', to: 'api/v1/companies#master_schedule'
   get 'api/v1/companies/:company_id/operations/week/:planner_id', to: 'api/v1/operations#get_week'
+  get 'api/v1/testing', to: 'test#index'
   namespace :api do
     namespace :v1 do
       resources :companies do
